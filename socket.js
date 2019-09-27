@@ -25,6 +25,7 @@ function webRTC(io) {
     // get number of callee
     socket.on('getNumberOfCallee', () => {
       socket.emit('numberOfCallee', callee.length);
+      console.log('Number Of Callee is', callee.length);
     });
   });
 }
