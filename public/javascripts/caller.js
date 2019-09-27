@@ -19,6 +19,13 @@ function sendJoin() {
   socket.emit('join', 'caller');
 }
 
+function getStream() {
+  return new Promise((resolve, reject) => {
+    navigator.mediaDevices.getDisplayMedia({ audio: false, video: true }).then((mediaStream) => {
+      resolve(mediaStream);
+    })
+  });
+}
 function getNumberOfCallee() {
   return new Promise((resolve, reject) => {
     socket.on('numberOfCallee', (numberOfCallee) => { resolve(numberOfCallee); });
