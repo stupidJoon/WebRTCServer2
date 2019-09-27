@@ -4,9 +4,10 @@ let caller = [];
 let callee = [];
 
 function webRTC(io) {
+  // socket connect event
   io.on('connection', (socket) => {
     console.log('Socket Connected', socket.id);
-
+    // determine socket is caller or callee
     socket.on('join', (room) => {
       if (room == 'caller') {
         socket.join(room);
@@ -21,29 +22,9 @@ function webRTC(io) {
       }
       console.log(socket.id, 'is', room);
     });
-
-    socket.on('offer', (offer) => {
-      console.log('Offer', offer != null);
-      io.sockets.emit('offer', offer);
-    });
-
-    socket.on('answer', (answer) => {
-      console.log('Answer', answer != null);
-      io.sockets.emit('answer', answer);
-    });
-
-    socket.on('candidate', (candidate) => {
-      console.log('Candidate', candidate != null);
-      if (caller.includes(socket.id) == true) {
-        io.to('callee').emit('candidate', candidate);
-      }
-      else if (callee.includes(socket.id) == true) {
-        io.to('caller').emit('candidate', candidate);
-      }
-    });
-
-    socket.on('disconnect', () => {
-      console.log('Socket Disconnected', socket.id);
+    // get number of callee
+    socket.on('getNumberOfCallee', () => {
+      socket.emit('numberOfCallee', callee.length);
     });
   });
 }

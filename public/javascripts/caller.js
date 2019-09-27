@@ -10,55 +10,36 @@ const RTC_CONFIGURATION = {
 };
 
 var socket = io.connect('https://sunrintv.kro.kr');
-var caller;
+var caller = [];
 
-socket.on('answer', (answer) => {
-  console.log(answer);
-  caller.setRemoteDescription(answer);
-});
-socket.on('candidate', (candidate) => {
-  console.log(candidate);
-  caller.addIceCandidate(candidate);
-});
+function sendGetNumberOfCallee() {
+  socket.emit('getNumberOfCallee');
+}
+function sendJoin() {
+  socket.emit('join', 'caller');
+}
 
-function sendOffer(offer) {
-  socket.emit('offer', offer);
-}
-function sendCandidate(candidate) {
-  socket.emit('candidate', candidate);
-}
-function getStream() {
+function getNumberOfCallee() {
   return new Promise((resolve, reject) => {
-    navigator.mediaDevices.getDisplayMedia({ audio: false, video: true }).then((mediaStream) => {
-      resolve(mediaStream);
-    })
+    socket.on('numberOfCallee', (numberOfCallee) => { resolve(numberOfCallee); });
+    sendGetNumberOfCallee();
   });
 }
-function makePeerConnection(stream) {
-  if (caller) { caller.close(); }
-  caller = new RTCPeerConnection(RTC_CONFIGURATION);
-  caller.addStream(stream);
-  caller.onicecandidate = (event) => {
-    if (event.candidate != null) {
-      sendCandidate(event.candidate);
-    }
-  }
-  makeOffer()
-}
-function makeOffer() {
-  caller.createOffer().then((offer) => {
-    return caller.setLocalDescription(offer);
-  }).then(() => {
-    sendOffer(caller.localDescription);
+
+function startWebRTC() {
+  getNumberOfCallee().then((numberOfCallee) => {
+    console.log('NumberOfCalle:', numberOfCallee);
   });
 }
 
 $(document).ready(() => {
-  socket.emit('join', 'caller');
+  // send socket server that i'm caller 
+  sendJoin();
+  // when click share button start WebRTC Connection
   $("#share").click(() => {
     getStream().then((stream) => {
       $("#screen")[0].srcObject = stream;
-      makePeerConnection(stream);
+      startWebRTC()
     });
   });
 });
