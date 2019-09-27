@@ -13,7 +13,7 @@ var socket = io.connect('https://sunrintv.kro.kr');
 var caller = [];
 
 function sendGetNumberOfCallee() {
-  socket.emit('getNumberOfCallee');
+  socket.emit('getNumberOfCallee', null);
 }
 function sendJoin() {
   socket.emit('join', 'caller');
