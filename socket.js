@@ -25,10 +25,10 @@ function webRTC(io) {
     });
     socket.on('candidate', (data) => {
       if (caller.includes(socket)) {
-        caller[data['id']].emit('candidate', data['candidate']);
+        callee[data['id']].emit('candidate', data['candidate']);
       }
       else if (callee.includes(socket)) {
-        callee[data['id']].emit('candidate', data['candidate']);
+        caller[data['id']].emit('candidate', data['candidate']);
       }
     });
   });
