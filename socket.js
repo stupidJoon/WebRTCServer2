@@ -31,6 +31,14 @@ function webRTC(io) {
         caller[data['id']].emit('candidate', data['candidate']);
       }
     });
+    socket.on('disconnect', () => {
+      if (caller.includes(socket)) {
+        caller.splice(caller.indexOf(socket), 1);
+      }
+      else if (callee.includes(socket)) {
+        callee.splice(callee.indexOf(socket), 1);
+      }
+    });
   });
 }
 
