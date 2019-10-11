@@ -12,6 +12,11 @@ const RTC_CONFIGURATION = {
 var socket = io.connect('https://sunrintv.kro.kr');
 var callee;
 
+socket.on('candidate', (candidate) => {
+  console.log('Candidate:', candidate);
+  callee.addIceCandidate(candidate);
+})
+
 function sendJoin() {
   socket.emit('join', 'callee');
 }
