@@ -32,7 +32,7 @@ function makePeerConnection(numberOfCallee) {
     pc.addStream(screenStream);
     pc.onicecandidate = (event) => {
       if (event.candidate != null) {
-        socket.emit('candidate', { id: i, candidate: candidate });
+        socket.emit('candidate', { id: i, candidate: event.candidate });
       }
     };
     pc.createOffer().then((offer) => {
