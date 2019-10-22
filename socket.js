@@ -1,6 +1,6 @@
 var exports = module.exports = {};
 
-let caller = [];
+let caller;
 let callee = [];
 
 function webRTC(io) {
@@ -9,7 +9,7 @@ function webRTC(io) {
     socket.on('join', (room) => {
       if (room == 'caller') {
         socket.join(room);
-        caller.push(socket);
+        caller = socket;
       }
       else if (room == 'callee') {
         socket.join(room);
@@ -24,16 +24,22 @@ function webRTC(io) {
       socket.emit('numberOfCallee', callee.length);
     });
     socket.on('candidate', (data) => {
-      if (caller.includes(socket)) {
+      if (socket == caller) {
         callee[data['id']].emit('candidate', data['candidate']);
       }
       else if (callee.includes(socket)) {
-        caller[data['id']].emit('candidate', data['candidate']);
+        caller.emit('candidate', data['candidate']);
       }
     });
+    socket.on('offer', (data) => {
+      callee[data['id']].emit('offer', data['offer']);
+    });
+    socket.on('answer', (data) => {
+      caller.emit('answer', data['answer']);
+    });
     socket.on('disconnect', () => {
-      if (caller.includes(socket)) {
-        caller.splice(caller.indexOf(socket), 1);
+      if (socket == caller) {
+        caller = null;
       }
       else if (callee.includes(socket)) {
         callee.splice(callee.indexOf(socket), 1);

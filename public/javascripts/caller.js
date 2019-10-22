@@ -13,6 +13,15 @@ var screenStream;
 var socket = io.connect('https://sunrintv.kro.kr');
 var caller = [];
 
+socket.on('candidate', (candidate) => {
+  console.log('Candidate Recieved:', candidate);
+  callee.addIceCandidate(candidate);
+});
+socket.on('answer', (answer) => {
+  console.log('Answer Recieved:', answer);
+  caller.setRemoteDescription(answer);
+});
+
 function getStream() {
   return new Promise((resolve, reject) => {
     navigator.mediaDevices.getDisplayMedia({ audio: false, video: true }).then((mediaStream) => {
@@ -39,10 +48,9 @@ function makePeerConnection(numberOfCallee) {
     pc.createOffer().then((offer) => {
       return pc.setLocalDescription(offer);
     }).then(() => {
-      // send offer to callee
+      socket.emit('offer', { id: i, offer: pc.localDescription });
     });
     caller.push(pc);
-    console.log(caller.length);
   }
 }
 

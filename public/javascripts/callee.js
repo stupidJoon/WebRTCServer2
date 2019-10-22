@@ -12,22 +12,41 @@ const RTC_CONFIGURATION = {
 var socket = io.connect('https://sunrintv.kro.kr');
 var callee;
 
+// make eventlistener when caller send candidate
 socket.on('candidate', (candidate) => {
-  console.log('Candidate:', candidate);
+  console.log('Candidate Received:', candidate);
   callee.addIceCandidate(candidate);
-})
-
-function sendJoin() {
-  socket.emit('join', 'callee');
-}
+});
+// make eventlistener when caller send offer
+socket.on('candidate', (offer) => {
+  console.log('Offer Received:', offer);
+  callee.setRemoteDescription(offer);
+  callee.createAnswer().then((answer) => {
+    return callee.setLocalDescription(answer);
+  }).then(() => {
+    socket.emit('answer', { offer: offer });
+  });
+});
 
 function startWebRTC() {
-  
+  // make new RTCPeerConnection
+  callee = new RTCPeerConnection(RTC_CONFIGURATION);
+  // make eventlistener when stream add
+  callee.onaddstream = (event) => {
+    $("#screen")[0].srcObject = event.stream;
+  };
+  // make eventlistener when ice candidate
+  callee.onicecandidate = (event) => {
+    if (event.candidate != null) {
+      console.log('Candidate Created:', event.candidate);
+      socket.emit('candidate', { candidate: event.candidate });
+    }
+  };
 }
 
 $(document).ready(() => {
   // send socket that i'm callee 
-  sendJoin()
+  socket.emit('join', 'callee');
   // start WebRTC connection
   startWebRTC()
 });
