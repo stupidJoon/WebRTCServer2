@@ -42,6 +42,7 @@ function makePeerConnection(numberOfCallee) {
       // send offer to callee
     });
     caller.push(pc);
+    console.log(pc.length);
   }
 }
 
