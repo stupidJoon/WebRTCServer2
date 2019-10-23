@@ -17,9 +17,9 @@ socket.on('candidate', (candidate) => {
   callee.addIceCandidate(candidate);
   console.log('Candidate Sent:', candidate);
 });
-socket.on('answer', (answer) => {
-  console.log('Answer Recieved:', answer);
-  caller.setRemoteDescription(answer);
+socket.on('answer', (data) => {
+  console.log('Answer Recieved:', data);
+  caller[data['id']].setRemoteDescription(data['answer']);
 });
 
 function getStream() {

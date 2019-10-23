@@ -36,7 +36,7 @@ function webRTC(io) {
     });
     socket.on('answer', (data) => {
       console.log(data);
-      caller.emit('answer', data['answer']);
+      caller.emit('answer', { id: callee.indexOf(socket), data: data['answer']});
     });
     socket.on('disconnect', () => {
       if (socket == caller) {
