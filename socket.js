@@ -28,14 +28,13 @@ function webRTC(io) {
         callee[data['id']].emit('candidate', data['candidate']);
       }
       else if (callee.includes(socket)) {
-        caller.emit('candidate', data['candidate']);
+        caller.emit('candidate', { id: callee.indexOf(socket), candidate: data['candidate'] });
       }
     });
     socket.on('offer', (data) => {
       callee[data['id']].emit('offer', data['offer']);
     });
     socket.on('answer', (data) => {
-      console.log(data);
       caller.emit('answer', { id: callee.indexOf(socket), data: data['answer']});
     });
     socket.on('disconnect', () => {
