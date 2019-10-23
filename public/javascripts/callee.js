@@ -24,7 +24,7 @@ socket.on('offer', (offer) => {
   callee.createAnswer().then((answer) => {
     return callee.setLocalDescription(answer);
   }).then(() => {
-    socket.emit('answer', { offer: offer });
+    socket.emit('answer', { answer: callee.localDescription });
   });
 });
 
