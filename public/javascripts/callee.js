@@ -18,7 +18,7 @@ socket.on('candidate', (candidate) => {
   callee.addIceCandidate(candidate);
 });
 // make eventlistener when caller send offer
-socket.on('candidate', (offer) => {
+socket.on('offer', (offer) => {
   console.log('Offer Received:', offer);
   callee.setRemoteDescription(offer);
   callee.createAnswer().then((answer) => {
