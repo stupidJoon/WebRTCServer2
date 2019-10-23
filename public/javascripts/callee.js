@@ -10,7 +10,7 @@ const RTC_CONFIGURATION = {
 };
 
 var socket = io.connect('https://sunrintv.kro.kr');
-var callee;
+var callee = new RTCPeerConnection(RTC_CONFIGURATION);
 
 // make eventlistener when caller send candidate
 socket.on('candidate', (candidate) => {
@@ -29,8 +29,6 @@ socket.on('candidate', (offer) => {
 });
 
 function startWebRTC() {
-  // make new RTCPeerConnection
-  callee = new RTCPeerConnection(RTC_CONFIGURATION);
   // make eventlistener when stream add
   callee.onaddstream = (event) => {
     $("#screen")[0].srcObject = event.stream;
