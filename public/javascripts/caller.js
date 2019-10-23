@@ -15,7 +15,7 @@ var caller = [];
 
 socket.on('candidate', (data) => {
   console.log('Received Sent:', data['candidate']);
-  callee[data['id']].addIceCandidate(data['candidate']);
+  caller[data['id']].addIceCandidate(data['candidate']);
 });
 socket.on('answer', (data) => {
   console.log('Answer Recieved:', data);
