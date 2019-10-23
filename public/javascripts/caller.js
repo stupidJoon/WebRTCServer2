@@ -14,8 +14,8 @@ var socket = io.connect('https://sunrintv.kro.kr');
 var caller = [];
 
 socket.on('candidate', (candidate) => {
-  console.log('Candidate Recieved:', candidate);
   callee.addIceCandidate(candidate);
+  console.log('Candidate Sent:', candidate);
 });
 socket.on('answer', (answer) => {
   console.log('Answer Recieved:', answer);
@@ -41,8 +41,8 @@ function makePeerConnection(numberOfCallee) {
     pc.addStream(screenStream);
     pc.onicecandidate = (event) => {
       if (event.candidate != null) {
-        console.log('Candidate Created:', event.candidate);
         socket.emit('candidate', { id: i, candidate: event.candidate });
+        console.log('Candidate Sent:', { id: i, candidate: event.candidate });
       }
     };
     pc.createOffer().then((offer) => {

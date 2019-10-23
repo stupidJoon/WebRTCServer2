@@ -35,6 +35,7 @@ function webRTC(io) {
       callee[data['id']].emit('offer', data['offer']);
     });
     socket.on('answer', (data) => {
+      console.log(data);
       caller.emit('answer', data['answer']);
     });
     socket.on('disconnect', () => {

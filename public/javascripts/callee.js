@@ -36,8 +36,8 @@ function startWebRTC() {
   // make eventlistener when ice candidate
   callee.onicecandidate = (event) => {
     if (event.candidate != null) {
-      console.log('Candidate Created:', event.candidate);
       socket.emit('candidate', { candidate: event.candidate });
+      console.log('Candidate Sent:', event.candidate);
     }
   };
 }
