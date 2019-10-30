@@ -2,3 +2,15 @@
     margin: 0px;
     padding: 0px;
 }
+
+body {
+    display: flex;
+}
+
+#screen {
+    flex: 1;
+}
+
+#chatConatiner {
+    flex: 1;
+}
