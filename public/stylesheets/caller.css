@@ -15,6 +15,7 @@
 
 #row2 {
     flex: 1;
+    flex-direction: row;
 }
 
 #screen {
