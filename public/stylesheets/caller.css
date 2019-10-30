@@ -12,6 +12,14 @@ html, body {
     background-color: lightgray;
 }
 
+#chatConatiner {
+    display: block;
+    position: relative;
+    width: 20%;
+    height: 80%;
+    background-color: gray;
+}
+
 #share {
     display: block;
     margin: auto;
