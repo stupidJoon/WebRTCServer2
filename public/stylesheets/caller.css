@@ -24,4 +24,5 @@ body {
 #shareContainer {
     flex: auto;
     align-items: center;
+    justify-items: center;
 }
