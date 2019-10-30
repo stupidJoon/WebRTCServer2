@@ -7,7 +7,7 @@ html, body {
 #screen {
     display: inline-block;
     position: relative;
-    width: 80%;
+    width: 70%;
     height: 80%;
     background-color: lightgray;
 }
