@@ -7,9 +7,11 @@ html, body {
 #screen {
     display: inline-block;
     position: relative;
-    width: 70%;
+    width: 80%;
     height: 80%;
     background-color: lightgray;
+    margin: 0px;
+    padding: 0px;
 }
 
 #chatConatiner {
@@ -18,6 +20,8 @@ html, body {
     width: 20%;
     height: 80%;
     background-color: gray;
+    margin: 0px;
+    padding: 0px;
 }
 
 #share {
