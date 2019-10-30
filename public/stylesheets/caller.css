@@ -18,9 +18,11 @@
 }
 
 #screen {
-    flex: 1;
+    width: 70%;
+    height: 100%;
 }
 
 #chatConatiner {
-    flex: 1;
+    width: 30%;
+    height: 100%;
 }
