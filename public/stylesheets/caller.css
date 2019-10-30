@@ -14,13 +14,14 @@ body {
 }
 
 #screen {
-    flex: 1;
+    flex: 3;
 }
 
 #chatConatiner {
     flex: 1;
 }
 
-#share {
-    
+#shareContainer {
+    flex: auto;
+    align-items: center;
 }
