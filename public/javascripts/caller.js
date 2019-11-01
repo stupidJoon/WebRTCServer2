@@ -45,6 +45,9 @@ function makePeerConnection(numberOfCallee) {
         console.log('Candidate Sent:', { id: i, candidate: event.candidate });
       }
     };
+    pc.oniceconnectionstatechange = () => {
+      console.log(pc.iceConnectionState);
+    };
     pc.createOffer().then((offer) => {
       return pc.setLocalDescription(offer);
     }).then(() => {
