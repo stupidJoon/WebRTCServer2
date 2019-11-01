@@ -52,7 +52,10 @@ function startWebRTC() {
 }
 
 $(document).ready(() => {
-  console.log($("#screen")[0]);
+  $("#screen")[0].oncanplay = () => { console.log("Can Start Playing Video"); }
+  $("#screen")[0].oncanplaythrough = () => { console.log("Can play through video without stopping"); }
+  $("#screen")[0].ondurationchange = () => { console.log("The video duration has changed"); }
+  $("#screen")[0].onerror = () => { console.log("Error! Something went wrong"); }
   // send socket that i'm callee 
   socket.emit('join', 'callee');
   // start WebRTC connection
