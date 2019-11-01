@@ -25,6 +25,9 @@ socket.on('answer', (data) => {
 function getStream() {
   return new Promise((resolve, reject) => {
     navigator.mediaDevices.getDisplayMedia({ audio: false, video: true }).then((mediaStream) => {
+      mediaStream.onremovetrack = (event) => {
+        console.log("Media Stream Removed:", event);
+      };
       resolve(mediaStream);
     })
   });
