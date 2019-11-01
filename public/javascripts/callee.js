@@ -52,6 +52,7 @@ function startWebRTC() {
 }
 
 $(document).ready(() => {
+  console.log($("#screen")[0]);
   // send socket that i'm callee 
   socket.emit('join', 'callee');
   // start WebRTC connection
