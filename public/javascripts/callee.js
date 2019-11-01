@@ -32,9 +32,11 @@ function startWebRTC() {
   // make eventlistener when stream add
   callee.onaddstream = (event) => {
     $("#screen")[0].srcObject = event.stream;
+    event.stream.onactive = (e) => { console.log("Stream Activated", e) }
+    event.stream.onaddtrack = (e) => { console.log("Stream Track Added", e); };
+    event.stream.oninactive = (e) => { console.log("Stream Inactivated", e); }
+    event.stream.onremovetrack = (e) => { console.log("Stream Track Removed", e); };
     console.log("Stream Added:", event.stream);
-    event.stream.active.onaddtrack = () => { console.log("Track Added"); };
-    event.stream.active.onremovetrack = () => { console.log("Track Removed"); };
   };
   // make eventlistener when ice candidate
   callee.onicecandidate = (event) => {
