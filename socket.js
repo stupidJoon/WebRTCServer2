@@ -45,6 +45,8 @@ function webRTC(io) {
       else if (callee.includes(socket)) {
         callee.splice(callee.indexOf(socket), 1);
       }
+      console.log('caller:', caller);
+      console.log('callee:', callee);
     });
   });
 }
