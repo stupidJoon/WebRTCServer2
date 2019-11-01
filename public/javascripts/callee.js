@@ -42,7 +42,7 @@ function startWebRTC() {
   };
   // make eventlistener when ice connection changed
   callee.oniceconnectionstatechange = () => {
-    console.log(pc.iceConnectionState);
+    console.log("Ice Connection:", callee.iceConnectionState);
   };
 }
 

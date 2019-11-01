@@ -46,7 +46,7 @@ function makePeerConnection(numberOfCallee) {
       }
     };
     pc.oniceconnectionstatechange = () => {
-      console.log(pc.iceConnectionState);
+      console.log("Ice Connection:", pc.iceConnectionState);
     };
     pc.createOffer().then((offer) => {
       return pc.setLocalDescription(offer);
