@@ -40,6 +40,10 @@ function startWebRTC() {
       console.log('Candidate Sent:', event.candidate);
     }
   };
+  // make eventlistener when ice connection changed
+  callee.oniceconnectionstatechange = () => {
+    console.log(pc.iceConnectionState);
+  };
 }
 
 $(document).ready(() => {
