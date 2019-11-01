@@ -9,8 +9,8 @@ const RTC_CONFIGURATION = {
   ]
 };
 
-var socket = io.connect('https://sunrintv.kro.kr');
-var callee = new RTCPeerConnection(RTC_CONFIGURATION);
+let socket = io.connect('https://sunrintv.kro.kr');
+let callee = new RTCPeerConnection(RTC_CONFIGURATION);
 
 // make eventlistener when caller send candidate
 socket.on('candidate', (candidate) => {
@@ -32,10 +32,6 @@ function startWebRTC() {
   // make eventlistener when stream add
   callee.onaddstream = (event) => {
     $("#screen")[0].srcObject = event.stream;
-    event.stream.onactive = (e) => { console.log("Stream Activated", e) }
-    event.stream.onaddtrack = (e) => { console.log("Stream Track Added", e); };
-    event.stream.oninactive = (e) => { console.log("Stream Inactivated", e); }
-    event.stream.onremovetrack = (e) => { console.log("Stream Track Removed", e); };
     console.log("Stream Added:", event.stream);
   };
   // make eventlistener when ice candidate
@@ -52,10 +48,9 @@ function startWebRTC() {
 }
 
 $(document).ready(() => {
-  $("#screen")[0].oncanplay = () => { console.log("Can Start Playing Video"); }
-  $("#screen")[0].oncanplaythrough = () => { console.log("Can play through video without stopping"); }
-  $("#screen")[0].ondurationchange = () => { console.log("The video duration has changed"); }
-  $("#screen")[0].onerror = () => { console.log("Error! Something went wrong"); }
+  $("#screen")[0].oncanplay = () => {
+    $("#screen")[0].play();
+  }
   // send socket that i'm callee 
   socket.emit('join', 'callee');
   // start WebRTC connection
