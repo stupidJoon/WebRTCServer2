@@ -18,7 +18,8 @@ function webRTC(io) {
       else {
         throw new Error('Neither Caller and Callee');
       }
-      console.log(socket.id, 'is', room);
+      console.log('caller:', caller);
+      console.log('callee:', callee);
     });
     socket.on('getNumberOfCallee', () => {
       socket.emit('numberOfCallee', callee.length);
