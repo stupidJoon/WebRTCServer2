@@ -18,8 +18,8 @@ function webRTC(io) {
       else {
         throw new Error('Neither Caller and Callee');
       }
-      console.log('caller:', caller);
-      console.log('callee:', callee);
+      console.log('caller:', (caller == null) ? null : caller.id);
+      console.log('callee:', callee.map((value) => { return value.id; }));
     });
     socket.on('getNumberOfCallee', () => {
       socket.emit('numberOfCallee', callee.length);
@@ -45,7 +45,7 @@ function webRTC(io) {
       else if (callee.includes(socket)) {
         callee.splice(callee.indexOf(socket), 1);
       }
-      //console.log('caller:', (caller == null) ? null : caller.id);
+      console.log('caller:', (caller == null) ? null : caller.id);
       console.log('callee:', callee.map((value) => { return value.id; }));
     });
   });
