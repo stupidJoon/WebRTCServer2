@@ -46,7 +46,10 @@ function makePeerConnection(numberOfCallee) {
       }
     };
     pc.oniceconnectionstatechange = () => {
-      console.log("Ice Connection:", pc.iceConnectionState);
+      if (pc.iceConnectionState === "disconnected") {
+        pc.close();
+        console.log("PC CLOSED!!!@#!@#!@#!");
+      }
     };
     pc.createOffer().then((offer) => {
       return pc.setLocalDescription(offer);
