@@ -32,7 +32,7 @@ function startWebRTC() {
   // make eventlistener when stream add
   callee.onaddstream = (event) => {
     $("#screen")[0].srcObject = event.stream;
-    console.log("Stream Added:", event.stream.active);
+    console.log("Stream Added:", event.stream);
     event.stream.active.onaddtrack = () => { console.log("Track Added"); };
     event.stream.active.onremovetrack = () => { console.log("Track Removed"); };
   };
