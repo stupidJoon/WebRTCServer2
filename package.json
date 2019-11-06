@@ -12,6 +12,7 @@
     "http-errors": "~1.6.3",
     "jade": "~1.11.0",
     "morgan": "~1.9.1",
+    "shortid": "^2.2.15",
     "socket.io": "^2.3.0",
     "uglify-js": "^3.6.7"
   },

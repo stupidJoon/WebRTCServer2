@@ -1,5 +1,6 @@
 var express = require('express');
 const path = require('path');
+const shortid = require('shortid');
 var router = express.Router();
 
 /* GET home page. */
@@ -11,6 +12,9 @@ router.get('/caller', (req, res) => {
 });
 router.get('/callee', (req, res) => {
   res.sendFile(path.join(__dirname, '../views/callee.html'));
+});
+router.get('/session', (req, res) => {
+  res.redirect('/' + shortid.generate());
 });
 
 module.exports = router;
