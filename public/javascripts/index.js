@@ -1,3 +1,7 @@
 $(document).ready(() => {
-  console.log("HELLOWORLD")
+  let createSessionButton = $("#create_session");
+
+  createSessionButton.click(() => {
+    location.href = 'session';
+  });
 });
