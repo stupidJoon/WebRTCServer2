@@ -1,3 +1,5 @@
+const SESSION_ID = location.href.split('/')[2];
+
 $(document).ready(() => {
-  console.log(location.href);
+  console.log(SESSION_ID);
 });
