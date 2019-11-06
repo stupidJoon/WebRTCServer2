@@ -17,7 +17,7 @@ router.get('/session', (req, res) => {
   res.redirect('/session/*' + shortid.generate());
 });
 router.get(/\/session\//, (req, res) => {
-  res.sendFile(path.join(__dirname, '../views/caller.html'));
+  res.sendFile(path.join(__dirname, '../views/session.html'));
 });
 
 module.exports = router;
